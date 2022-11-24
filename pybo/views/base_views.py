@@ -33,10 +33,10 @@ def index(request):
 def detail(request, question_id):
     page = request.GET.get('page', '1')
     question = get_object_or_404(Question, pk=question_id)
-    answer_list = Question.objects.filter(question=question).order_by('-create_date')
+    answer_list = Answer.objects.filter(question=question).order_by('-create_date')
     paginator = Paginator(answer_list, 5)
     page_obj = paginator.get_page(page)
-    context = {'question': question, 'answer_list': page_obj}
+    context = {'question': question, 'answer_list': page_obj, 'page': page}
     return render(request, 'pybo/question_detail.html', context)
 
 
